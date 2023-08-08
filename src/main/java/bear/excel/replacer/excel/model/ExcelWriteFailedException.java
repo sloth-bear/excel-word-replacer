@@ -1,4 +1,4 @@
-package bear.excel.excelconverter.excel.model;
+package bear.excel.replacer.excel.model;
 
 public class ExcelWriteFailedException extends RuntimeException {
 

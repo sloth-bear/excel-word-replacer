@@ -1,4 +1,4 @@
-package bear.excel.excelconverter.rule.model;
+package bear.excel.replacer.rule.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

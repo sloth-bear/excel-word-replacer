@@ -1,6 +1,6 @@
-package bear.excel.excelconverter.rule;
+package bear.excel.replacer.rule;
 
-import bear.excel.excelconverter.rule.model.Rule;
+import bear.excel.replacer.rule.model.Rule;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

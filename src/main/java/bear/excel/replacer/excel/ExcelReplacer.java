@@ -1,6 +1,6 @@
-package bear.excel.excelconverter.excel;
+package bear.excel.replacer.excel;
 
-import bear.excel.excelconverter.rule.model.Rule;
+import bear.excel.replacer.rule.model.Rule;
 import org.apache.poi.ss.usermodel.*;
 
 import java.util.List;

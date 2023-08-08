@@ -1,6 +1,6 @@
-package bear.excel.excelconverter.excel;
+package bear.excel.replacer.excel;
 
-import bear.excel.excelconverter.excel.model.ExcelLoadFailedException;
+import bear.excel.replacer.excel.model.ExcelLoadFailedException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

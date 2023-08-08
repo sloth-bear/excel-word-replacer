@@ -1,6 +1,6 @@
-package bear.excel.excelconverter.excel;
+package bear.excel.replacer.excel;
 
-import bear.excel.excelconverter.rule.CsvRuleLoader;
+import bear.excel.replacer.rule.CsvRuleLoader;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
