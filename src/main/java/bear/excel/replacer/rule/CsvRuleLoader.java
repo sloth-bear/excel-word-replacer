@@ -3,27 +3,24 @@ package bear.excel.replacer.rule;
 import bear.excel.replacer.rule.model.Rule;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CsvRuleLoader implements RuleLoader {
 
-    private final String filePath;
+    private final InputStream inputStream;
 
-    public CsvRuleLoader(final String filePath) {
-        this.filePath = filePath;
-    }
-
-    public static CsvRuleLoader of(final String filePath) {
-        return new CsvRuleLoader(filePath);
+    public CsvRuleLoader(final InputStream inputStream) {
+        this.inputStream = inputStream;
     }
 
     public List<Rule> load() {
         List<Rule> rules = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(this.filePath))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");

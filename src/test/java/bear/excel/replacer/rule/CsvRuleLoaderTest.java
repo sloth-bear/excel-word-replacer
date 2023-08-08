@@ -11,11 +11,10 @@ class CsvRuleLoaderTest {
     @Test
     void csvTest() {
         // given
-        String csvFile = "C:\\Users\\admin\\Documents\\git-repo\\excel-word-replacer\\src\\test\\resources\\rule.csv";
-        CsvRuleLoader csvRuleLoader = new CsvRuleLoader(csvFile);
+        final CsvRuleLoader csvRuleLoader = new CsvRuleLoader(ClassLoader.getSystemResourceAsStream("rule.csv"));
 
         // when
-        List<Rule> rules = csvRuleLoader.load();
+        final List<Rule> rules = csvRuleLoader.load();
 
         // then
         Assertions.assertThat(rules).hasSize(2);

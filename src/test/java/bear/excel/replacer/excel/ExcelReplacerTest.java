@@ -1,6 +1,7 @@
 package bear.excel.replacer.excel;
 
 import bear.excel.replacer.rule.CsvRuleLoader;
+import bear.excel.replacer.rule.RuleLoader;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.Test;
 class ExcelReplacerTest {
 
     private static final String EXCEL_FILE_PATH = "C:\\Users\\admin\\Documents\\git-repo\\excel-word-replacer\\src\\test\\resources\\input\\test_excel.xlsx";
-    private static final String RULE_FILE_PATH = "C:\\Users\\admin\\Documents\\git-repo\\excel-word-replacer\\src\\test\\resources\\rule.csv";
+    private static final String RULE_FILE_PATH = "rule.csv";
 
     @Test
     void givenWorkbook_whenReplace_thenReturnReplacedWorkbook() {
@@ -16,7 +17,8 @@ class ExcelReplacerTest {
         final ExcelLoader excelLoader = new ExcelLoader(EXCEL_FILE_PATH);
         final Workbook source = excelLoader.load();
 
-        final ExcelReplacer replacer = new ExcelReplacer(source, CsvRuleLoader.of(RULE_FILE_PATH).load());
+        final RuleLoader ruleLoader = new CsvRuleLoader(ClassLoader.getSystemResourceAsStream(RULE_FILE_PATH));
+        final ExcelReplacer replacer = new ExcelReplacer(source, ruleLoader.load());
 
         // when
         final Workbook result = replacer.replace();

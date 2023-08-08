@@ -4,6 +4,8 @@ import bear.excel.replacer.excel.ExcelLoader;
 import bear.excel.replacer.excel.ExcelReplacer;
 import bear.excel.replacer.excel.ExcelWriter;
 import bear.excel.replacer.rule.CsvRuleLoader;
+import bear.excel.replacer.rule.RuleLoader;
+import bear.excel.replacer.rule.model.Rule;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +14,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
+import java.util.List;
 
 @SpringBootApplication
 public class ExcelConverterApplication implements CommandLineRunner {
 
-    private static Logger LOG = LoggerFactory.getLogger(ExcelConverterApplication.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ExcelConverterApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(ExcelConverterApplication.class, args);
@@ -34,15 +37,15 @@ public class ExcelConverterApplication implements CommandLineRunner {
         final String input = args[0];
         final String output = args[1];
 
-        final String rule = "C:\\Users\\admin\\Documents\\git-repo\\excel-word-replacer\\src\\main\\resources\\rule\\rule.csv";
-
         LOG.info("대상 파일: {}", input);
-        LOG.info("대체할 문자열: {}", rule);
-
         final ExcelLoader excelLoader = new ExcelLoader(input);
 
         try (final Workbook workbook = excelLoader.load()) {
-            final ExcelReplacer replacer = new ExcelReplacer(workbook, CsvRuleLoader.of(rule).load());
+            final RuleLoader ruleLoader = new CsvRuleLoader(ClassLoader.getSystemResourceAsStream("rule\\rule.csv"));
+            final List<Rule> rules = ruleLoader.load();
+            LOG.info("대체할 문자열: {}", rules);
+
+            final ExcelReplacer replacer = new ExcelReplacer(workbook, rules);
             final Workbook replaced = replacer.replace();
 
             LOG.info("Replacing workbook to: {}", output);
