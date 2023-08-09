@@ -4,26 +4,42 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
-group = 'bear.excel'
-version = '0.0.1-SNAPSHOT'
-
-java {
-    sourceCompatibility = '1.8'
-}
-
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.apache.poi:poi:5.2.3'
-    implementation 'org.apache.poi:poi-ooxml:5.2.3'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+subprojects {
+    group = 'bear.replacer'
+    version = '0.1.0'
+
+    java {
+        sourceCompatibility = '1.8'
+    }
+
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
 }
 
-tasks.named('test') {
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+test {
     useJUnitPlatform()
 }
