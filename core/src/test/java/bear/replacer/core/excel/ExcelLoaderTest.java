@@ -4,14 +4,18 @@ import bear.replacer.core.excel.model.ExcelLoadFailedException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.io.ClassPathResource;
+
+import java.io.IOException;
+import java.nio.file.Paths;
 
 class ExcelLoaderTest {
 
     @Test
-    void givenExcelFile_whenLoad_thenReturnXSSFWorkbook() {
+    void givenExcelFile_whenLoad_thenReturnXSSFWorkbook() throws IOException {
         // given
-        final String filePath = "C:\\Users\\admin\\Documents\\git-repo\\excel-word-replacer\\src\\test\\resources\\input\\test_excel.xlsx";
-        final ExcelLoader excelLoader = new ExcelLoader(filePath);
+        final ClassPathResource resource = new ClassPathResource("input/test_excel.xlsx");
+        final ExcelLoader excelLoader = new ExcelLoader(Paths.get(resource.getURI()).toString());
 
         // when
         final Workbook workbook = excelLoader.load();
@@ -22,10 +26,10 @@ class ExcelLoaderTest {
     }
 
     @Test
-    void givenNonExcelFile_whenLoad_thenThrownExcelLoadFailedException() {
+    void givenNonExcelFile_whenLoad_thenThrownExcelLoadFailedException() throws IOException {
         // given
-        final String csvFilePath = "C:\\Users\\admin\\Documents\\git-repo\\excel-word-replacer\\src\\test\\resources\\rule.csv";
-        final ExcelLoader excelLoader = new ExcelLoader(csvFilePath);
+        final ClassPathResource resource = new ClassPathResource("rule.csv");
+        final ExcelLoader excelLoader = new ExcelLoader(Paths.get(resource.getURI()).toString());
 
         // when && then
         Assertions.assertThatThrownBy(excelLoader::load).isInstanceOf(ExcelLoadFailedException.class);
